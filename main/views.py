@@ -62,3 +62,14 @@ def show_json_by_id(request, news_id):
        return HttpResponse(json_data, content_type="application/json")
    except News.DoesNotExist:
        return HttpResponse(status=404)
+
+def edit_news(request, id):
+    news = get_object_or_404(News, pk=id)
+
+    form = NewsForm(request.POST or None, instance=news)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect('main:show_news', id=id)
+
+    context = {'form': form, 'news_id': id}
+    return render(request, "edit_news.html", context)
