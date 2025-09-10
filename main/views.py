@@ -11,7 +11,8 @@ def show_main(request):
     context = {
         'npm' : '2406360312',
         'name': 'Ainur Fadhil',
-        'class': 'PBP F'
+        'class': 'PBP F',
+        'news_list': news_list,
     }
 
     return render(request, "main.html", context)
